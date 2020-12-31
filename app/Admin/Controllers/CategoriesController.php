@@ -193,12 +193,16 @@ class CategoriesController extends Controller
             ["id" => 1, "name" => "手机配件"],
             ["id" => 2, "name" => "耳机"],
        ]
+     *
+     * 3.4:
+     * 我们之前在实现 /admin/api/categories 这个接口时，只返回了 is_directory 为 true 的类目，而我们在这个页面则是需要 is_directory 为 false 的类目，因此我们需要调整一下这个接口，通过参数可以控制 is_directory 的筛选条件
      */
     public function apiIndex(Request $request){
         // 用户输入的值通过 q 参数获取
         $search = $request->input('q');
         $result = Category::query()
-            ->where('is_directory', true)  // 由于这里选择的是父类目，因此需要限定 is_directory 为 true
+            //->where('is_directory', true)  // 由于这里选择的是父类目，因此需要限定 is_directory 为 true
+            ->where('is_directory', boolval($request->input('is_directory', true))) //3.4 修改
             ->where('name', 'like', '%'.$search.'%')
             ->paginate();
         // 把查询出来的结果重新组装成 Laravel-Admin 需要的格式

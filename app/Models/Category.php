@@ -75,8 +75,5 @@ class Category extends Model
         ->implode(' - '); // 用 - 符号将数组的值组装成一个字符串
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
+
 }

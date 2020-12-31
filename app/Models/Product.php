@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-// 5.1. 商品的数据结构设计 新建
 class Product extends Model
 {
     protected $fillable = [
@@ -21,7 +20,6 @@ class Product extends Model
         return $this->hasMany(ProductSku::class);
     }
 
-    // 5.4. 商品列表页面 添加:
     public function getImageUrlAttribute(){
         // 如果 image 字段本身就已经是完整的 url 就直接返回
         if (Str::startsWith($this->attributes['image'], ['http://', 'https://'])) {
@@ -29,5 +27,10 @@ class Product extends Model
         }
         // \Storage::disk('public') 的参数 public 需要和我们在 config/admin.php 里面的 upload.disk 配置一致。
         return \Storage::disk('public')->url($this->attributes['image']);
+    }
+
+    //3.1. 商品类目数据库结构设计 新建
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }
