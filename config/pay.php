@@ -1,5 +1,5 @@
 <?php
-// 7.1. 安装扩展包 yansongda/pay 新建
+
 return [
     'alipay' => [
         'app_id'         => '2021000116685589',
