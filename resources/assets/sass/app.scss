@@ -278,7 +278,6 @@ body {
   .buttons {
     padding-left: 44px;
   }
-
   .product-detail  {
     .nav.nav-tabs > li > a {
       border-radius: 0 !important;
@@ -287,6 +286,34 @@ body {
     .tab-content {
       border: 1px solid #eee;
       padding: 20px;
+    }
+  }
+  /*4.5-new. 下单逻辑 添加*/
+  .crowdfunding-info {
+    margin-bottom: 20px;
+    font-size: 14px;
+    .have-text {
+      font-size: 16px;
+    }
+    .total-amount {
+      .symbol {
+        font-size: 20px;
+      }
+      font-size: 32px;
+    }
+    .progress {
+      height: 10px;
+      margin-bottom: 5px;
+    }
+    .progress-info {
+      font-weight: 600;
+      margin: 10px 0;
+    }
+    .current-progress {
+      color: rgb(161, 6, 224);
+    }
+    .text-red {
+      color: red;
     }
   }
 }

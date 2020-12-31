@@ -50,6 +50,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('orders/{order}/review', 'OrdersController@sendReview')->name('orders.review.store'); //8.5 评价商品
         Route::post('orders/{order}/apply_refund', 'OrdersController@applyRefund')->name('orders.apply_refund'); //8.6 申请退款
         Route::get('coupon_codes/{code}', 'CouponCodesController@show')->name('coupon_codes.show'); //9.3 检查优惠券
+
+        Route::post('crowdfunding_orders', 'OrdersController@crowdfunding')->name('crowdfunding_orders.store'); //4.5-new. 下单逻辑
     });
 });
 

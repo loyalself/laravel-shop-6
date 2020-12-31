@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Monolog\Logger;
 use Yansongda\Pay\Pay;
@@ -13,6 +14,13 @@ class AppServiceProvider extends ServiceProvider
         // 3.6. 前台类目菜单 修改:当 Laravel 渲染 products.index 和 products.show 模板时，就会使用 CategoryTreeComposer 这个来注入类目树变量
         // 同时 Laravel 还支持通配符，例如 products.* 即代表当渲染 products 目录下的模板时都执行这个 ViewComposer
         \View::composer(['products.index', 'products.show'], \App\Http\ViewComposers\CategoryTreeComposer::class);
+
+        /**
+         * 4.5 下单逻辑 添加:
+         * 让 Carbon 对象的 diffForHumans() 方法返回中文,
+         * 对于此类需要全局设置的操作，我们通常放在 AppServiceProvider 的 boot() 方法中来执行
+         */
+        Carbon::setLocale('zh');
     }
 
     /**

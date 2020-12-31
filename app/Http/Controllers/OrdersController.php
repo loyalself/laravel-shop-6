@@ -5,16 +5,18 @@ use App\Events\OrderReviewd;
 use App\Exceptions\CouponCodeUnavailableException;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Requests\ApplyRefundRequest;
+use App\Http\Requests\CrowdFundingOrderRequest;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\SendReviewRequest;
 use App\Models\CouponCode;
+use App\Models\ProductSku;
 use App\Models\UserAddress;
 use App\Models\Order;
 use App\Services\OrderService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Services\OrderServiceOld;
-//6.8. 封装业务代码 修改
+//6.8-old. 封装业务代码 修改
 class OrdersController extends Controller
 {
     public function index(Request $request){
@@ -29,8 +31,7 @@ class OrdersController extends Controller
     }
 
     public function show(Order $order, Request $request){
-        $this->authorize('own', $order); // 6.7. 用户订单详情页 添加
-
+        $this->authorize('own', $order); // 6.7-old. 用户订单详情页 添加
         return view('orders.show', ['order' => $order->load(['items.productSku', 'items.product'])]);
     }
 
@@ -40,7 +41,7 @@ class OrdersController extends Controller
       return $orderService->store($user, $address, $request->input('remark'), $request->input('items'));
     }*/
 
-    //9.4 用户界面 - 使用优惠券下单 修改
+    //9.4-old 用户界面 - 使用优惠券下单 修改
     public function store(OrderRequest $request, OrderService $orderService)
     {
         $user    = $request->user();
@@ -57,10 +58,8 @@ class OrdersController extends Controller
         // 参数中加入 $coupon 变量
         return $orderService->store($user, $address, $request->input('remark'), $request->input('items'), $coupon);
     }
-
-
     /**
-     * 8.4. 用户确认收货 添加:
+     * 8.4-old. 用户确认收货 添加:
      */
     public function received(Order $order, Request $request){
         // 校验权限
@@ -74,12 +73,11 @@ class OrdersController extends Controller
         // 返回原页面
         //return redirect()->back();
 
-        //8.4 由于我们把确认收货的操作从表单提交改成了 AJAX 请求,所以这里返回订单信息
+        //8.4-old 由于我们把确认收货的操作从表单提交改成了 AJAX 请求,所以这里返回订单信息
         return $order;
     }
-    // 8.5 添加: 评价商品页面
-    public function review(Order $order)
-    {
+    // 8.5-old 添加: 评价商品页面
+    public function review(Order $order){
         // 校验权限
         $this->authorize('own', $order);
         // 判断是否已经支付
@@ -89,9 +87,8 @@ class OrdersController extends Controller
         // 使用 load 方法加载关联数据，避免 N + 1 性能问题
         return view('orders.review', ['order' => $order->load(['items.productSku', 'items.product'])]);
     }
-    //8.5 添加:评价商品逻辑
-    public function sendReview(Order $order, SendReviewRequest $request)
-    {
+    //8.5-old 添加:评价商品逻辑
+    public function sendReview(Order $order, SendReviewRequest $request){
         // 校验权限
         $this->authorize('own', $order);
         if (!$order->paid_at) {
@@ -122,7 +119,7 @@ class OrdersController extends Controller
         return redirect()->back();
     }
     /**
-     * 8.6. 用户界面 - 申请退款 添加:
+     * 8.6-old. 用户界面 - 申请退款 添加:
      */
     public function applyRefund(Order $order, ApplyRefundRequest $request){
         // 校验订单是否属于当前用户
@@ -146,11 +143,21 @@ class OrdersController extends Controller
         return $order;
     }
 
+    //4.5 添加: 创建一个新的方法用于接受众筹商品下单请求
+    public function crowdfunding(CrowdFundingOrderRequest $request, OrderService $orderService){
+        $user    = $request->user();
+        $sku     = ProductSku::query()->find($request->input('sku_id'));
+        $address = UserAddress::query()->find($request->input('address_id'));
+        $amount  = $request->input('amount');
+
+        return $orderService->crowdfunding($user, $address, $sku, $amount);
+    }
+
 
 }
 
 /**
- * 6.8 关于 Service 模式:
+ * 6.8-old 关于 Service 模式:
    Service 模式将 PHP 的商业逻辑写在对应责任的 Service 类里，解決 Controller 臃肿的问题。
  * 并且符合 SOLID 的单一责任原则，购物车的逻辑由 CartService 负责，而不是 CartController ，控制器是调度中心，编码逻辑更加清晰。
  * 后面如果我们有 API 或者其他会使用到购物车功能的需求，也可以直接使用 CartService ，代码可复用性大大增加。
