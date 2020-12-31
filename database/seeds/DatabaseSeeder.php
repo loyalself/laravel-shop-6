@@ -9,15 +9,9 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        // $this->call(UsersTableSeeder::class);
-
-        // 10.2. 完善假数据填充 修改
-        $this->call(UsersSeeder::class);
-        $this->call(UserAddressesSeeder::class);
+    public function run(){
+        // 3.2. 数据库填充 添加:
+        $this->call(CategoriesSeeder::class);
         $this->call(ProductsSeeder::class);
-        $this->call(CouponCodesSeeder::class);
-        $this->call(OrdersSeeder::class);
     }
 }
