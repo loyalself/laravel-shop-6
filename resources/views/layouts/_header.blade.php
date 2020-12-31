@@ -1,4 +1,4 @@
-{{-- 2.6 基础布局 新建--}}
+{{-- 2.6-old 基础布局 新建--}}
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
         <div class="navbar-header">
@@ -14,18 +14,32 @@
         </div>
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <ul class="nav navbar-nav">
+                <!-- 3.6. 前台类目菜单 添加: 顶部类目菜单开始
+                这里我们使用了 Blade 的 each 语法，第一个参数是模板名称，第二个参数是要遍历的数组，第三个参数是遍历的项在模板中的变量名
+                -->
+                <!-- 判断模板是否有 $categoryTree 变量 -->
+                @if(isset($categoryTree))
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">所有类目 <b class="caret"></b></a>
+                        <ul class="dropdown-menu multi-level">
+                            <!-- 遍历 $categoryTree 集合，将集合中的每一项以 $category 变量注入 layouts._category_item 模板中并渲染 -->
+                            @each('layouts._category_item', $categoryTree, 'category')
+                        </ul>
+                    </li>
+                @endif
+                 <!-- 顶部类目菜单结束 -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                {{-- <li><a href="#">登录</a></li>
                 <li><a href="#">注册</a></li>--}}
 
 
-                  <!-- 3.1 注册与登录 修改:登录注册链接开始 -->
+                  <!-- 3.1-old 注册与登录 修改:登录注册链接开始 -->
                    @guest
                        <li><a href="{{ route('login') }}">登录</a></li>
                        <li><a href="{{ route('register') }}">注册</a></li>
                    @else
-                      <!-- 6.2 查看购物车 添加-->
+                      <!-- 6.2-old 查看购物车 添加-->
                        <li>
                            <a href="{{ route('cart.index') }}"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
                        </li>

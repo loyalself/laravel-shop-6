@@ -8,18 +8,15 @@ use Yansongda\Pay\Pay;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
+
+    public function boot(){
+        // 3.6. 前台类目菜单 修改:当 Laravel 渲染 products.index 和 products.show 模板时，就会使用 CategoryTreeComposer 这个来注入类目树变量
+        // 同时 Laravel 还支持通配符，例如 products.* 即代表当渲染 products 目录下的模板时都执行这个 ViewComposer
+        \View::composer(['products.index', 'products.show'], \App\Http\ViewComposers\CategoryTreeComposer::class);
     }
 
     /**
-     *  7.1. 安装扩展包 yansongda/pay 修改:之前此方法为空
+     *  7.1-old. 安装扩展包 yansongda/pay 修改:之前此方法为空
      *  1.容器是现代 PHP 开发的一个重要概念，Laravel 就是在容器的基础上构建的。我们将支付操作类实例注入到容器中，在以后的代码里就可以直接通过 app('alipay') 来取得对应的实例，而不需要每次都重新创建
      *  2.$this->app->singleton() 往服务容器中注入一个单例对象，第一次从容器中取对象时会调用回调函数来生成对应的对象并保存到容器中，之后再去取的时候直接将容器中的对象返回。
         3.app()->environment() 获取当前运行的环境，线上环境会返回 production。对于支付宝，如果项目运行环境不是线上环境，则启用开发模式，并且将日志级别设置为 DEBUG。由于微信支付没有开发模式，所以仅仅将日志级别设置为 DEBUG

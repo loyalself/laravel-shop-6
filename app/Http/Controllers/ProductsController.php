@@ -6,6 +6,7 @@ use App\Exceptions\InvalidRequestException;
 use App\Models\Category;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 // 5.4-old. 商品列表页面 新建
 class ProductsController extends Controller
@@ -14,6 +15,7 @@ class ProductsController extends Controller
      * 商品列表页
      */
     public function index(Request $request){
+     //public function index(Request $request, CategoryService $categoryService){ //3.6. 前台类目菜单 修改
         //$products = Product::query()->where('on_sale', true)->paginate();
         // 5.4-old. 同章修改
         /*$products = Product::query()->where('on_sale', true)->paginate(16);
@@ -69,6 +71,8 @@ class ProductsController extends Controller
         return view('products.index', [
             'products' => $products,
             'category' => $category ?? null,  // 3.5 添加: 等价于 isset($category) ? $category : null
+            // 将类目树传递给模板文件
+            //'categoryTree' => $categoryService->getCategoryTree(), //3.6 添加
             'filters'  => [
                 'search'   => $search,
                 'order'    => $order
