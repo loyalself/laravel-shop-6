@@ -8,7 +8,7 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
-// 2.6 基础布局 添加 body  navbar-static-top html footer
+// 2.6-old 基础布局 添加 body  navbar-static-top html footer
 // 通用样式
 body {
   font-family: Hiragino Sans GB, "Hiragino Sans GB", Helvetica, "Microsoft YaHei", Arial,sans-serif;
@@ -56,9 +56,9 @@ body {
     }
   }
 }
-/*5.4. 商品列表页面 添加*/
+/*5.4-old. 商品列表页面 添加*/
 //.products-index-page {
-.products-index-page,.products-favorites-page { // 5.7. 收藏商品 添加: products-favorites-page
+.products-index-page,.products-favorites-page { // 5.7-old. 收藏商品 添加: products-favorites-page
   .products-list {
     padding: 0 15px;
     .product-item {
@@ -119,15 +119,61 @@ body {
   .pagination {
     margin-right: 5px;
   }
-  /* 5.5. 商品筛选、排序 添加*/
-  .search-form {
+  /* 5.5-old. 商品筛选、排序 添加*/
+  /*.search-form {
     padding: 0 20px 10px;
     margin-bottom: 10px;
     border-bottom: 1px solid #eee;
+  }*/
+
+  /* 3.5. 完善前台商品列表页 修改:search*/
+  .search-form {
+    padding: 0 20px 10px;
+    border-bottom: 1px solid #eee;
+    .all-products {
+      font-size: 12px;
+      color: #666;
+      text-decoration: none;
+    }
+    .category {
+      font-size: 12px;
+      height: 22px;
+      border: 1px solid #eee;
+      padding: 4px;
+      color: #666;
+      a {
+        text-decoration: none;
+        color: #666;
+      }
+    }
   }
+  .filters {
+    font-size: 12px;
+    margin-bottom: 10px;
+    &>.row {
+      border-bottom: 1px solid #eee;
+      .filter-key {
+        width: 150px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background: #f3f3f3;
+        color: #666;
+      }
+      .filter-values {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        a {
+          margin-right: 50px;
+          color: #666;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
 }
 
-/* 5.6. 商品详情页 添加*/
+/* 5.6-old. 商品详情页 添加*/
 .products-show-page {
   .cover {
     width: 100%;
@@ -245,7 +291,7 @@ body {
   }
 }
 
-/* 6.2 查看购物车 */
+/* 6.2-old 查看购物车 */
 .cart-index-page {
   .product_list {
     .preview {
@@ -291,7 +337,7 @@ body {
     }
   }
 }
-/* 6.6 用户订单列表 */
+/* 6.6-old 用户订单列表 */
 .orders-index-page {
   .list-group-item {
     font-size: 12px;
@@ -336,7 +382,7 @@ body {
     }
   }
 }
-/* 6.7. 用户订单详情页 */
+/* 6.7-old. 用户订单详情页 */
 .orders-show-page {
   font-size: 12px;
   .vertical-middle {
@@ -402,17 +448,17 @@ body {
       padding-right: 20px;
     }
   }
-  // 7.3. 订单的支付宝支付 添加
+  // 7.3-old. 订单的支付宝支付 添加
   .payment-buttons {
     margin-top: 10px;
     padding-right: 10px;
   }
-  //8.4. 用户界面 - 确认收货 添加
+  //8.4-old. 用户界面 - 确认收货 添加
   .payment-buttons, .receive-button {
     margin-top: 10px;
     padding-right: 10px;
   }
-  //8.6. 用户界面 - 申请退款 添加
+  //8.6-old. 用户界面 - 申请退款 添加
   .payment-buttons, .receive-button, .refund-button {
     margin-top: 10px;
     padding-right: 10px;
@@ -420,7 +466,7 @@ body {
 }
 
 
-/* 8.5. 评价商品 */
+/* 8.5-old. 评价商品 */
 .orders-review-show-page {
   .vertical-middle {
     vertical-align: middle;

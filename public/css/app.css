@@ -8383,11 +8383,17 @@ body {
   color: inherit;
 }
 
-/*5.4. 商品列表页面 添加*/
+/*5.4-old. 商品列表页面 添加*/
 
 .products-index-page,
 .products-favorites-page {
-  /* 5.5. 商品筛选、排序 添加*/
+  /* 5.5-old. 商品筛选、排序 添加*/
+  /*.search-form {
+    padding: 0 20px 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }*/
+  /* 3.5. 完善前台商品列表页 修改:search*/
 }
 
 .products-index-page .products-list,
@@ -8487,11 +8493,65 @@ body {
 .products-index-page .search-form,
 .products-favorites-page .search-form {
   padding: 0 20px 10px;
-  margin-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
 
-/* 5.6. 商品详情页 添加*/
+.products-index-page .search-form .all-products,
+.products-favorites-page .search-form .all-products {
+  font-size: 12px;
+  color: #666;
+  text-decoration: none;
+}
+
+.products-index-page .search-form .category,
+.products-favorites-page .search-form .category {
+  font-size: 12px;
+  height: 22px;
+  border: 1px solid #eee;
+  padding: 4px;
+  color: #666;
+}
+
+.products-index-page .search-form .category a,
+.products-favorites-page .search-form .category a {
+  text-decoration: none;
+  color: #666;
+}
+
+.products-index-page .filters,
+.products-favorites-page .filters {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.products-index-page .filters > .row,
+.products-favorites-page .filters > .row {
+  border-bottom: 1px solid #eee;
+}
+
+.products-index-page .filters > .row .filter-key,
+.products-favorites-page .filters > .row .filter-key {
+  width: 150px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: #f3f3f3;
+  color: #666;
+}
+
+.products-index-page .filters > .row .filter-values,
+.products-favorites-page .filters > .row .filter-values {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.products-index-page .filters > .row .filter-values a,
+.products-favorites-page .filters > .row .filter-values a {
+  margin-right: 50px;
+  color: #666;
+  text-decoration: none;
+}
+
+/* 5.6-old. 商品详情页 添加*/
 
 .products-show-page .cover {
   width: 100%;
@@ -8634,7 +8694,7 @@ body {
   padding: 20px;
 }
 
-/* 6.2 查看购物车 */
+/* 6.2-old 查看购物车 */
 
 .cart-index-page .product_list .preview {
   margin-right: 20px;
@@ -8690,7 +8750,7 @@ body {
   border-radius: 0 !important;
 }
 
-/* 6.6 用户订单列表 */
+/* 6.6-old 用户订单列表 */
 
 .orders-index-page .list-group-item {
   font-size: 12px;
@@ -8752,7 +8812,7 @@ body {
   font-weight: bolder;
 }
 
-/* 6.7. 用户订单详情页 */
+/* 6.7-old. 用户订单详情页 */
 
 .orders-show-page {
   font-size: 12px;
@@ -8873,7 +8933,7 @@ body {
   padding-right: 10px;
 }
 
-/* 8.5. 评价商品 */
+/* 8.5-old. 评价商品 */
 
 .orders-review-show-page .vertical-middle {
   vertical-align: middle;
