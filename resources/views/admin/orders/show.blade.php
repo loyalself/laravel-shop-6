@@ -58,7 +58,12 @@
             <!-- 如果订单未发货，展示发货表单 -->
             @if($order->ship_status === \App\Models\Order::SHIP_STATUS_PENDING)
                 <!-- 退款成功之后，我们在后台的订单详情页里面还能看到发货的表单，这个不符合逻辑，需要把它隐藏掉,所以加这个 if -->
-                @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_SUCCESS)
+                <!--4.6-new 注释: if($order->refund_status !== \App\Models\Order::REFUND_STATUS_SUCCESS)-->
+
+                <!-- 4.6-new. 订单模块调整 修改: 只有众筹状态是『已成功』的众筹订单才可以发货-->
+                @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_SUCCESS &&
+                    ($order->type !== \App\Models\Order::TYPE_CROWDFUNDING ||
+                     $order->items[0]->product->crowdfunding->status === \App\Models\CrowdfundingProduct::STATUS_SUCCESS))
                 <tr>
                     <td colspan="4">
                         <form action="{{ route('admin.orders.ship', [$order->id]) }}" method="post" class="form-inline">
