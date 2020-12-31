@@ -9,7 +9,8 @@ class Product extends Model
 {
     protected $fillable = [
         'title', 'description', 'image', 'on_sale',
-        'rating', 'sold_count', 'review_count', 'price'
+        'rating', 'sold_count', 'review_count', 'price',
+        'type', //4.2. 众筹商品数据库结构设计 添加
     ];
     protected $casts = [
         'on_sale' => 'boolean', // on_sale 是一个布尔类型的字段
@@ -29,8 +30,18 @@ class Product extends Model
         return \Storage::disk('public')->url($this->attributes['image']);
     }
 
-    //3.1. 商品类目数据库结构设计 新建
+    //3.1. 商品类目数据库结构设计 添加:
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+    // 4.2 添加:
+    const TYPE_NORMAL = 'normal';
+    const TYPE_CROWDFUNDING = 'crowdfunding';
+    public static $typeMap = [
+        self::TYPE_NORMAL  => '普通商品',
+        self::TYPE_CROWDFUNDING => '众筹商品',
+    ];
+    public function crowdfunding(){
+        return $this->hasOne(CrowdfundingProduct::class);
     }
 }
