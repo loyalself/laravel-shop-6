@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('payment/{order}/installment', 'PaymentController@payByInstallment')->name('payment.installment'); //5.3-new. 创建分期付款
         Route::get('installments', 'InstallmentsController@index')->name('installments.index'); //5.4-new 分期付款首页
         Route::get('installments/{installment}', 'InstallmentsController@show')->name('installments.show'); //5.5-new 分期详情页
+        Route::get('installments/{installment}/alipay', 'InstallmentsController@payByAlipay')->name('installments.alipay'); //5.5-new 支付宝支付
+        Route::get('installments/alipay/return', 'InstallmentsController@alipayReturn')->name('installments.alipay.return');//5.5-new 支付宝前端回调
     });
 });
 
@@ -70,3 +72,6 @@ Route::get('alipay', function() {
 });
 //7.3. 支付宝回调: 服务器端回调的路由不能放到带有 auth 中间件的路由组中，因为支付宝的服务器请求不会带有认证信息
 Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
+
+//5.6-new. 分期还款（支付宝） 添加: 后端回调不能放在 auth 中间件中
+Route::post('installments/alipay/notify', 'InstallmentsController@alipayNotify')->name('installments.alipay.notify');
