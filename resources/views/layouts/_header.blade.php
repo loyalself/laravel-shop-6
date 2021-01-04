@@ -58,6 +58,9 @@
                                <li><a href="{{ route('user_addresses.index') }}">收货地址</a></li>
                                 {{-- 6.6 用户订单列表  添加--}}
                                <li><a href="{{ route('orders.index') }}">我的订单</a></li>
+                                <!--5.3-new. 创建分期付款 添加-->
+                               <li><a href="{{ route('installments.index') }}">分期付款</a></li>
+
                                <!-- 5.7. 收藏商品 添加-->
                                <li><a href="{{ route('products.favorites') }}">我的收藏</a></li>
 
