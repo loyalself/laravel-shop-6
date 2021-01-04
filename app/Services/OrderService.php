@@ -101,8 +101,7 @@ class OrderService
      * 4.5. 下单逻辑 添加:新建一个 crowdfunding 方法用于实现众筹商品下单逻辑
      * 如果在发起关闭订单任务时直接用了默认的订单关闭时间，就有可能使订单的关闭时间在众筹结束之后，而众筹结束之后如果还没有关闭订单，用户还可以支付，这并不符合众筹的规则，因此我们需要通过取两者的较小值来避免订单关闭时间晚于众筹结束时间
      */
-    public function crowdfunding(User $user, UserAddress $address, ProductSku $sku, $amount)
-    {
+    public function crowdfunding(User $user, UserAddress $address, ProductSku $sku, $amount){
         // 开启事务
         $order = \DB::transaction(function () use ($amount, $sku, $user, $address) {
             // 更新地址最后使用时间
@@ -154,35 +153,35 @@ class OrderService
                 // 生成退款订单号
                 $refundNo = Order::getAvailableRefundNo();
                 app('wechat_pay')->refund([
-                    'out_trade_no' => $order->no,
-                    'total_fee' => $order->total_amount * 100,
-                    'refund_fee' => $order->total_amount * 100,
+                    'out_trade_no'  => $order->no,
+                    'total_fee'     => $order->total_amount * 100,
+                    'refund_fee'    => $order->total_amount * 100,
                     'out_refund_no' => $refundNo,
-                    'notify_url' => ngrok_url('payment.wechat.refund_notify'),
+                    'notify_url'    => ngrok_url('payment.wechat.refund_notify'),
                 ]);
                 $order->update([
-                    'refund_no' => $refundNo,
+                    'refund_no'     => $refundNo,
                     'refund_status' => Order::REFUND_STATUS_PROCESSING,
                 ]);
                 break;
             case 'alipay':
                 $refundNo = Order::getAvailableRefundNo();
                 $ret = app('alipay')->refund([
-                    'out_trade_no' => $order->no,
-                    'refund_amount' => $order->total_amount,
+                    'out_trade_no'   => $order->no,
+                    'refund_amount'  => $order->total_amount,
                     'out_request_no' => $refundNo,
                 ]);
                 if ($ret->sub_code) {
                     $extra = $order->extra;
                     $extra['refund_failed_code'] = $ret->sub_code;
                     $order->update([
-                        'refund_no' => $refundNo,
+                        'refund_no'     => $refundNo,
                         'refund_status' => Order::REFUND_STATUS_FAILED,
-                        'extra' => $extra,
+                        'extra'         => $extra,
                     ]);
                 } else {
                     $order->update([
-                        'refund_no' => $refundNo,
+                        'refund_no'     => $refundNo,
                         'refund_status' => Order::REFUND_STATUS_SUCCESS,
                     ]);
                 }

@@ -11,7 +11,7 @@ function route_class(){
 }
 
 /**
- * 4.7. 测试支付 添加:
+ * 4.7-new. 测试支付 添加:
  */
 function ngrok_url($routeName, $parameters = []){
     // 开发环境，并且配置了 NGROK_URL
@@ -21,4 +21,9 @@ function ngrok_url($routeName, $parameters = []){
     }
 
     return route($routeName, $parameters);
+}
+
+// 5.2-new. 分期付款数据库结构设计 添加:默认的精度为小数点后两位
+function big_number($number, $scale = 2){
+    return new \Moontoast\Math\BigNumber($number, $scale);
 }
