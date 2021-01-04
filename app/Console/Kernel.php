@@ -27,6 +27,8 @@ class Kernel extends ConsoleKernel
 
         // 每分钟执行一次
         $schedule->command('cron:finish-crowdfunding')->everyMinute(); //4.8-new. 众筹结束逻辑 添加
+        // daily() 代表每天凌晨 00:00 执行
+        $schedule->command('cron:calculate-installment-fine')->daily(); //5.8-new. 计算逾期费 添加
     }
 
     /**
