@@ -72,6 +72,7 @@ Route::get('alipay', function() {
 });
 //7.3. 支付宝回调: 服务器端回调的路由不能放到带有 auth 中间件的路由组中，因为支付宝的服务器请求不会带有认证信息
 Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
-
-//5.6-new. 分期还款（支付宝） 添加: 后端回调不能放在 auth 中间件中
+//5.6-new. 分期还款（支付宝） 后端回调不能放在 auth 中间件中
 Route::post('installments/alipay/notify', 'InstallmentsController@alipayNotify')->name('installments.alipay.notify');
+//5.9-new. 微信退款回调
+Route::post('installments/wechat/refund_notify', 'InstallmentsController@wechatRefundNotify')->name('installments.wechat.refund_notify');
