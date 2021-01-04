@@ -16,9 +16,11 @@
                             <img class="cover" src="{{ $product->image_url }}" alt="">
                         </div>
                         <div class="col-sm-7">
-                            <div class="title">{{ $product->title }}</div>
+                            <!-- <div class="title"> $product->title</div>-->
+                            <!-- 6.2-new. 商品长标题 修改-->
+                            <div class="title">{{ $product->long_title ?: $product->title }}</div>
 
-                            <!-- 4.5. 下单逻辑 添加: 众筹商品模块开始 -->
+                            <!-- 4.5-new. 下单逻辑 添加: 众筹商品模块开始 -->
                             @if($product->type === \App\Models\Product::TYPE_CROWDFUNDING)
                                 <div class="crowdfunding-info">
                                     <div class="have-text">已筹到</div>

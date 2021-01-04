@@ -10,7 +10,9 @@ class Product extends Model
     protected $fillable = [
         'title', 'description', 'image', 'on_sale',
         'rating', 'sold_count', 'review_count', 'price',
-        'type', //4.2. 众筹商品数据库结构设计 添加
+        'type', //4.2-new. 众筹商品数据库结构设计 添加
+        'title',       //6.2-new. 商品长标题 添加
+        'long_title', //6.2-new 添加
     ];
     protected $casts = [
         'on_sale' => 'boolean', // on_sale 是一个布尔类型的字段

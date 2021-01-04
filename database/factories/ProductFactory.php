@@ -34,5 +34,7 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
            如果数据库中没有类目则 $category 为 null，同样 category_id 也设成 null
          */
         'category_id'  => $category ? $category->id : null,
+        //6.2-new. 商品长标题  添加:
+        'long_title'   => $faker->sentence,
     ];
 });
