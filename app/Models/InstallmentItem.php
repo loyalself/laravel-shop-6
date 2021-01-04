@@ -54,7 +54,7 @@ class InstallmentItem extends Model
        */
 
         /**
-         * 但是每次使用都要 new 一次对象并且设定精度，还是比较麻烦的，我们可以在 helpers.php 里创建一个辅助函数来方便我们调用
+         * 但是每次使用都要 new 一次对象并且设定精度,还是比较麻烦的,我们可以在 helpers.php 里创建一个辅助函数来方便我们调用.
          */
         //$total = (new BigNumber($this->base, 2))->add($this->fee);
         $total = big_number($this->base)->add($this->fee);
@@ -65,8 +65,7 @@ class InstallmentItem extends Model
     }
 
     // 创建一个访问器，返回当前还款计划是否已经逾期
-    public function getIsOverdueAttribute()
-    {
+    public function getIsOverdueAttribute(){
         return Carbon::now()->gt($this->due_date);
     }
 }

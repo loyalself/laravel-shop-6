@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('coupon_codes/{code}', 'CouponCodesController@show')->name('coupon_codes.show'); //9.3 检查优惠券
 
         Route::post('crowdfunding_orders', 'OrdersController@crowdfunding')->name('crowdfunding_orders.store'); //4.5-new. 下单逻辑
+        Route::post('payment/{order}/installment', 'PaymentController@payByInstallment')->name('payment.installment'); //5.3-new. 创建分期付款
     });
 });
 
