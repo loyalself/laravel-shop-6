@@ -8555,6 +8555,7 @@ body {
 
 .products-show-page {
   /*4.5-new. 下单逻辑 添加*/
+  /* 6.1-new. 商品属性 添加*/
 }
 
 .products-show-page .cover {
@@ -8731,6 +8732,34 @@ body {
 
 .products-show-page .crowdfunding-info .text-red {
   color: red;
+}
+
+.products-show-page .properties-list {
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 20px;
+}
+
+.products-show-page .properties-list .properties-list-title {
+  padding: 5px 0;
+  color: #999;
+  font-weight: 700;
+}
+
+.products-show-page .properties-list .properties-list-body {
+  font-size: 12px;
+  padding: 5px 0;
+  list-style: none;
+  text-indent: 0;
+}
+
+.products-show-page .properties-list .properties-list-body li {
+  display: inline-block;
+  width: 30%;
+  overflow: hidden;
+}
+
+.products-show-page .product-description img {
+  max-width: 100%;
 }
 
 /* 6.2-old 查看购物车 */

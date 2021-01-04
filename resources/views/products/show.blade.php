@@ -143,9 +143,29 @@
                             <li role="presentation"><a href="#product-reviews-tab" aria-controls="product-reviews-tab" role="tab" data-toggle="tab">用户评价</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="product-detail-tab">
+                        <!-- <div role="tabpanel" class="tab-pane active" id="product-detail-tab">
+                                 $product->description !!}
+                            </div>-->
+
+                            <!--6.1-new. 商品属性 修改: 产品属性开始 -->
+                            <div class="properties-list">
+                                <div class="properties-list-title">产品参数：</div>
+                                <ul class="properties-list-body">
+                                    <!-- 6.1 同章修改
+                                    foreach($product->properties as $property)
+                                        <li> $property->name ： $property->value </li>
+                                    endforeach-->
+                                    @foreach($product->grouped_properties as $name => $values)
+                                        <li>{{ $name }}：{{ join(' ', $values) }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <!-- 产品属性结束 -->
+                            <!-- 在商品描述外面包了一层 div -->
+                            <div class="product-description">
                                 {!! $product->description !!}
                             </div>
+
                             <div role="tabpanel" class="tab-pane" id="product-reviews-tab">
                                 <!-- 8.5. 评价商品 添加:评论列表开始 -->
                                 <table class="table table-bordered table-striped">

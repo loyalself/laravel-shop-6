@@ -1,6 +1,7 @@
 <?php
 namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -73,7 +74,7 @@ abstract class CommonProductsController extends Controller
         $form->hidden('type')->value($this->getProductType());
         $form->text('title', '商品名称')->rules('required');
         $form->select('category_id', '类目')->options(function ($id) {
-            $category = Category::find($id);
+            $category = Category::query()->find($id);
             if ($category) {
                 return [$category->id => $category->full_name];
             }
@@ -91,6 +92,13 @@ abstract class CommonProductsController extends Controller
             $form->text('price', '单价')->rules('required|numeric|min:0.01');
             $form->text('stock', '剩余库存')->rules('required|integer|min:0');
         });
+
+        // 6.1-new. 商品属性 添加:
+        $form->hasMany('properties', '商品属性', function (Form\NestedForm $form) {
+            $form->text('name', '属性名')->rules('required');
+            $form->text('value', '属性值')->rules('required');
+        });
+
         $form->saving(function (Form $form) {
             $form->model()->price = collect($form->input('skus'))->where(Form::REMOVE_FLAG_NAME, 0)->min('price') ?: 0;
         });
