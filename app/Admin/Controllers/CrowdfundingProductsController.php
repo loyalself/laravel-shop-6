@@ -49,7 +49,7 @@ class CrowdfundingProductsController extends CommonProductsController
     }
 
 
-    //4.4 添加
+    //4.4-new 添加
     public function getProductType(){
         return Product::TYPE_CROWDFUNDING;
     }

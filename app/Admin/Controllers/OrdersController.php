@@ -9,6 +9,7 @@ use App\Models\CrowdfundingProduct;
 use App\Models\Order;
 use App\Http\Controllers\Controller;
 
+use App\Services\OrderService;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Facades\Admin;
 use Encore\Admin\Form;
@@ -223,7 +224,7 @@ class OrdersController extends Controller
             throw new InvalidRequestException('该订单已发货');
         }
 
-        // 4.6. 订单模块调整 添加: 众筹订单只有在众筹成功之后发货
+        // 4.6-new. 订单模块调整 添加: 众筹订单只有在众筹成功之后发货
         if ($order->type === Order::TYPE_CROWDFUNDING &&
             $order->crowdfunding_status === CrowdfundingProduct::STATUS_SUCCESS) {
             throw new InvalidRequestException('众筹订单只能在众筹成功之后发货');
@@ -250,16 +251,18 @@ class OrdersController extends Controller
 
     /**
      * 8.7. 管理后台 - 拒绝退款 添加:
+     * 4.8-new. 众筹结束逻辑 添加
      */
-    public function handleRefund(Order $order, HandleRefundRequest $request){
+    //public function handleRefund(Order $order, HandleRefundRequest $request){
+    public function handleRefund(Order $order, HandleRefundRequest $request,OrderService $orderService){//4.8-new 修改
         // 判断订单状态是否正确
         if ($order->refund_status !== Order::REFUND_STATUS_APPLIED) {
             throw new InvalidRequestException('订单状态不正确');
         }
         // 是否同意退款
         if ($request->input('agree')) {
-            // 同意退款的逻辑这里先留空
-            $this->_refundOrder($order); // 8.8. 管理后台 - 同意退款（支付宝） 添加:
+            $orderService->refundOrder($order); //4.8-new 修改
+            //$this->_refundOrder($order); // 8.8. 管理后台 - 同意退款（支付宝） 添加:
         } else {
             // 将拒绝退款理由放到订单的 extra 字段中
             $extra = $order->extra ?: [];

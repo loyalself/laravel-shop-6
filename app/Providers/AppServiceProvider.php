@@ -37,8 +37,9 @@ class AppServiceProvider extends ServiceProvider
             /**
              * 注意：回调地址必须是完整的带有域名的 URL，不可以是相对路径。使用 route() 函数生成的 URL 默认就是带有域名的完整地址。
              */
-            $config['notify_url'] = route('payment.alipay.notify');  //7.3 添加: notify_url 代表服务器端回调地址
+            //$config['notify_url'] = route('payment.alipay.notify');  //7.3 添加: notify_url 代表服务器端回调地址
             $config['return_url'] = route('payment.alipay.return');  //7.3 return_url 代表前端回调地址
+            $config['notify_url'] = ngrok_url('payment.alipay.notify'); // 4.7-new. 测试支付 修改
 
             // 判断当前项目运行环境是否为线上环境
             if (app()->environment() !== 'production') {
@@ -53,6 +54,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton('wechat_pay', function () {
             $config = config('pay.wechat');
+            $config['notify_url'] = ngrok_url('payment.wechat.notify'); //// 4.7-new. 测试支付 添加:
+
             if (app()->environment() !== 'production') {
                 $config['log']['level'] = Logger::DEBUG;
             } else {
