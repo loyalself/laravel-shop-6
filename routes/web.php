@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('crowdfunding_orders', 'OrdersController@crowdfunding')->name('crowdfunding_orders.store'); //4.5-new. 下单逻辑
         Route::post('payment/{order}/installment', 'PaymentController@payByInstallment')->name('payment.installment'); //5.3-new. 创建分期付款
         Route::get('installments', 'InstallmentsController@index')->name('installments.index'); //5.4-new 分期付款首页
+        Route::get('installments/{installment}', 'InstallmentsController@show')->name('installments.show'); //5.5-new 分期详情页
     });
 });
 

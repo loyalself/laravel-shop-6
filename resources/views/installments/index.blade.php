@@ -27,7 +27,9 @@
                                 <td>{{ $installment->count }}</td>
                                 <td>{{ $installment->fee_rate }}%</td>
                                 <td>{{ \App\Models\Installment::$statusMap[$installment->status] }}</td>
-                                <td><a class="btn btn-primary btn-xs" href="">查看</a></td>
+                                <!-- <td><a class="btn btn-primary btn-xs" href="">查看</a></td>-->
+                                <!-- 5.5-new . 分期详情页 添加-->
+                                <td><a class="btn btn-primary btn-xs" href="{{ route('installments.show', ['installment' => $installment->id]) }}">查看</a></td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Installment;
 use Illuminate\Http\Request;
-//5.3-new. 创建分期付款 新建:
+//5.4-new. 分期付款列表页 新建:
 class InstallmentsController extends Controller
 {
     public function index(Request $request){
@@ -12,5 +12,17 @@ class InstallmentsController extends Controller
             ->where('user_id', $request->user()->id)
             ->paginate(10);
         return view('installments.index', ['installments' => $installments]);
+    }
+
+    //5.5-new. 分期详情页  添加:
+    public function show(Installment $installment){
+        // 取出当前分期付款的所有的还款计划，并按还款顺序排序
+        $items = $installment->items()->orderBy('sequence')->get();
+        return view('installments.show', [
+            'installment' => $installment,
+            'items'       => $items,
+            // 下一个未完成还款的还款计划
+            'nextItem'    => $items->where('paid_at', null)->first(),
+        ]);
     }
 }
